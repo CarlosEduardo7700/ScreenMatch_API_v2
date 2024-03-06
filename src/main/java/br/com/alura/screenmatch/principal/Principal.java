@@ -34,6 +34,7 @@ public class Principal {
                     1 - Buscar séries
                     2 - Buscar episódios
                     3 - Listar séries buscadas
+                    4 - Buscar séries por título
                                     
                     0 - Sair
                                                     
@@ -53,6 +54,9 @@ public class Principal {
                 case 3:
                     listarSeriesBuscadas();
                     break;
+                case 4:
+                    buscarSeriePorTitulo();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -60,6 +64,19 @@ public class Principal {
                     System.out.println("Opção inválida");
             }
 
+        }
+    }
+
+    private void buscarSeriePorTitulo() {
+        System.out.println("Informe o nome da série:");
+        var nome = leitura.nextLine();
+
+        Optional<Serie> serie = repository.findByTituloContainingIgnoreCase(nome);
+
+        if (serie.isPresent()) {
+            System.out.println("Dados da série: " + serie.get());
+        } else {
+            System.out.println("Série não encontrada!");
         }
     }
 
@@ -93,9 +110,11 @@ public class Principal {
 
 
 
-        Optional<Serie> serie = series.stream()
-                .filter(s -> s.getTitulo().toLowerCase().contains(nome.toLowerCase()))
-                .findFirst();
+//        Optional<Serie> serie = series.stream()
+//                .filter(s -> s.getTitulo().toLowerCase().contains(nome.toLowerCase()))
+//                .findFirst();
+
+        Optional<Serie> serie = repository.findByTituloContainingIgnoreCase(nome);
 
         if (serie.isPresent()) {
             var serieEncontrada = serie.get();
