@@ -88,7 +88,7 @@ public class Principal {
         var totalTemporadas = leitura.nextInt();
         System.out.println("Informe apartir de qual pontuação da avaliação que você deseja buscar as séries: ");
         var avaliacao = leitura.nextDouble();
-        List<Serie> seriesBuscadas = repository.findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(totalTemporadas, avaliacao);
+        List<Serie> seriesBuscadas = repository.buscarSeriesPorTemporadasEAvaliacao(totalTemporadas, avaliacao);
         seriesBuscadas.forEach(System.out::println);
     }
 
