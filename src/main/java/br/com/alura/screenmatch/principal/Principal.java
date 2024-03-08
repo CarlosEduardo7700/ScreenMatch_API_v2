@@ -39,6 +39,7 @@ public class Principal {
                     6 - Listar as Top 5 séries
                     7 - Buscar séries por gênero
                     8 - Buscar séries por número de temporadas
+                    9 - Buscar episódios por título
                                     
                     0 - Sair
                                                     
@@ -73,6 +74,9 @@ public class Principal {
                 case 8:
                     buscarSeriesPorNumeroDeTemporadas();
                     break;
+                case 9:
+                    buscarEpisodiosPeloTitulo();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -81,6 +85,15 @@ public class Principal {
             }
 
         }
+    }
+
+    private void buscarEpisodiosPeloTitulo() {
+        System.out.println("Digite o nome do episódio para a busca:");
+        var nome = leitura.nextLine();
+        List<Episodio> episodios = repository.buscarEpisodiosPorTitulo(nome);
+        episodios.forEach(e -> System.out.printf("Série: %s Temporada %s - Episódio %s - %s\n",
+                e.getSerie().getTitulo(), e.getTemporada(),
+                e.getNumeroEpisodio(), e.getTitulo()));
     }
 
     private void buscarSeriesPorNumeroDeTemporadas() {
