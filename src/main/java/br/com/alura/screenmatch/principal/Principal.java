@@ -42,6 +42,7 @@ public class Principal {
                     8 - Buscar séries por número de temporadas
                     9 - Buscar episódios por título
                     10 - Listar os Top 5 episódios por série
+                    11 - Buscar episódios de uma série apartir de um ano de lançamento
                                     
                     0 - Sair
                                                     
@@ -82,6 +83,9 @@ public class Principal {
                 case 10:
                     listarTop5EpisodiosPorSerie();
                     break;
+                case 11:
+                    buscarEpisodiosApartirDeAnoLancamento();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -89,6 +93,18 @@ public class Principal {
                     System.out.println("Opção inválida");
             }
 
+        }
+    }
+
+    private void buscarEpisodiosApartirDeAnoLancamento() {
+        buscarSeriePorTitulo();
+        if (serieBuscada.isPresent()) {
+            System.out.println("Informe apartir de que ano você deseja recuperar os episódios dessa série: ");
+            var anoLancamento = leitura.nextInt();
+            List<Episodio> episodios = repository.buscarEpisodiosPorAnoDeLancamento(serieBuscada, anoLancamento);
+            episodios.forEach(e -> System.out.printf("Série: %s | Temporada: %s | Episódio %s - %s | Avaliação: %s\n",
+                    e.getSerie().getTitulo(), e.getTemporada(),
+                    e.getNumeroEpisodio(), e.getTitulo(), e.getAvaliacao()));
         }
     }
 
